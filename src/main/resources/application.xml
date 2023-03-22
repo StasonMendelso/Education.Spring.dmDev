@@ -2,20 +2,30 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean name="driver" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="PostgresDriver"/>
+    </bean>
     <bean id="pool1" name="p1,poolConnection1," class="org.stanislav.database.pool.ConnectionPool">
-        <constructor-arg  name="username" type="java.lang.String" value="postgres"/>
-        <constructor-arg  name="poolSize" type="java.lang.Integer" value="10"/>
+        <constructor-arg name="username" type="java.lang.String" ref="driver"/>
+        <constructor-arg name="poolSize" type="java.lang.Integer" value="10"/>
         <constructor-arg index="2" name="args" type="java.util.List">
             <list value-type="java.lang.Object">
                 <value>--arg1=value1</value>
                 <value>--arg2=value2</value>
+                <ref bean="driver"/>
             </list>
         </constructor-arg>
         <constructor-arg index="3" name="properties" type="java.util.Map">
             <map key-type="java.lang.String" value-type="java.lang.Object">
                 <entry key="url" value="postgresUrl"/>
                 <entry key="password" value="123"/>
+                <entry key="driver" value-ref="driver"/>
             </map>
         </constructor-arg>
+    </bean>
+    <bean id="companyRepository"
+          class="org.stanislav.database.repository.CompanyRepository"
+          factory-method="of">
+        <constructor-arg name="connectionPool" ref="pool1" type="org.stanislav.database.pool.ConnectionPool"/>
     </bean>
 </beans>
