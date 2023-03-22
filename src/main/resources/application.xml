@@ -16,12 +16,15 @@
             </list>
         </constructor-arg>
         <constructor-arg index="3" name="properties" type="java.util.Map">
+            <null/>
+        </constructor-arg>
+        <property name="properties">
             <map key-type="java.lang.String" value-type="java.lang.Object">
                 <entry key="url" value="postgresUrl"/>
                 <entry key="password" value="123"/>
                 <entry key="driver" value-ref="driver"/>
             </map>
-        </constructor-arg>
+        </property>
     </bean>
     <bean id="companyRepository"
           class="org.stanislav.database.repository.CompanyRepository"
