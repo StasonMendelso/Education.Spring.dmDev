@@ -3,6 +3,7 @@ package org.stanislav.bpp;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.Ordered;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Map;
 /**
  * @author Stanislav Hlova
  */
+@Component
 public class AuditingBeanPostProcessor implements BeanPostProcessor{
     private final Map<String, Class<?>> auditBeans = new HashMap<>();
 
