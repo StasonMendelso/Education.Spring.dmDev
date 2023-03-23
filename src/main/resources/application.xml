@@ -4,6 +4,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     <context:annotation-config/>
+<!--    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
+
     <context:property-placeholder location="classpath*:application.properties"/>
 
     <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
@@ -17,9 +19,7 @@
     <bean name="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${database.driver}"/>
     </bean>
-    <bean id="pool1" name="p1,poolConnection1," class="org.stanislav.database.pool.ConnectionPool"
-          init-method="init"
-          destroy-method="destroyX">
+    <bean id="pool1" name="p1,poolConnection1," class="org.stanislav.database.pool.ConnectionPool">
         <constructor-arg name="username" type="java.lang.String" value="${database.username}"/>
         <constructor-arg name="poolSize" type="java.lang.Integer" value="${database.pool.size}"/>
         <constructor-arg index="2" name="args" type="java.util.List">
