@@ -6,17 +6,20 @@
     <context:annotation-config/>
     <context:property-placeholder location="classpath*:application.properties"/>
 
-<!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
-<!--        <property name="locations" value="classpath:application.properties"/>-->
-<!--    </bean>-->
+    <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+    <!--        <property name="locations" value="classpath:application.properties"/>-->
+    <!--    </bean>-->
 
-<!--    ${} -->
+    <!--    ${} -->
+    <bean class="org.stanislav.bfpp.LogBeanFactoryPostProcessor"/>
+    <bean class="org.stanislav.bfpp.VerifyBreakpointBeanFactoryPostProcessor"/>
+
     <bean name="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${database.driver}"/>
     </bean>
     <bean id="pool1" name="p1,poolConnection1," class="org.stanislav.database.pool.ConnectionPool"
           init-method="init"
-    destroy-method="destroyX">
+          destroy-method="destroyX">
         <constructor-arg name="username" type="java.lang.String" value="${database.username}"/>
         <constructor-arg name="poolSize" type="java.lang.Integer" value="${database.pool.size}"/>
         <constructor-arg index="2" name="args" type="java.util.List">
@@ -29,7 +32,7 @@
         <constructor-arg index="3" name="properties" type="java.util.Map">
             <null/>
         </constructor-arg>
-<!--     #{}   -->
+        <!--     #{}   -->
         <property name="properties">
             <map key-type="java.lang.String" value-type="java.lang.Object">
                 <entry key="url" value="postgresUrl"/>
