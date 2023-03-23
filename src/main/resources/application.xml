@@ -13,6 +13,8 @@
     <!--    </bean>-->
 
     <!--    ${} -->
+    <bean class="org.stanislav.bpp.InjectBeanPostProcessor"/>
+
     <bean class="org.stanislav.bfpp.LogBeanFactoryPostProcessor"/>
     <bean class="org.stanislav.bfpp.VerifyBreakpointBeanFactoryPostProcessor"/>
 
@@ -45,8 +47,6 @@
         </property>
     </bean>
     <bean id="companyRepository"
-          class="org.stanislav.database.repository.CompanyRepository"
-          factory-method="of">
-        <constructor-arg name="connectionPool" ref="pool1" type="org.stanislav.database.pool.ConnectionPool"/>
+          class="org.stanislav.database.repository.CompanyRepository">
     </bean>
 </beans>
