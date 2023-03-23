@@ -13,12 +13,13 @@ import org.stanislav.service.UserService;
  */
 public class ApplicationRunner {
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application.xml");
-        // clazz -> String -> Map<String, Object>
-        ConnectionPool connectionPool = applicationContext.getBean("pool1", ConnectionPool.class);
-        System.out.println(connectionPool);
-        CompanyRepository companyRepository = applicationContext.getBean("companyRepository", CompanyRepository.class);
-        System.out.println(companyRepository);
+        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("application.xml")) {
+            // clazz -> String -> Map<String, Object>
+            ConnectionPool connectionPool = applicationContext.getBean("pool1", ConnectionPool.class);
+            System.out.println(connectionPool);
+            CompanyRepository companyRepository = applicationContext.getBean("companyRepository", CompanyRepository.class);
+            System.out.println(companyRepository);
+        }
     }
 
 }
