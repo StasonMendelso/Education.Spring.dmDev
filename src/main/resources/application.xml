@@ -14,6 +14,8 @@
 
     <!--    ${} -->
     <bean class="org.stanislav.bpp.InjectBeanPostProcessor"/>
+    <bean class="org.stanislav.bpp.TransactionBeanPostProcessor"/>
+    <bean class="org.stanislav.bpp.AuditingBeanPostProcessor"/>
 
     <bean class="org.stanislav.bfpp.LogBeanFactoryPostProcessor"/>
     <bean class="org.stanislav.bfpp.VerifyBreakpointBeanFactoryPostProcessor"/>

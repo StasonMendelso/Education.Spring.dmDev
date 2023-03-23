@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.stanislav.database.pool.ConnectionPool;
 import org.stanislav.database.repository.CompanyRepository;
+import org.stanislav.database.repository.CrudRepository;
 import org.stanislav.database.repository.UserRepository;
 import org.stanislav.ioc.Container;
 import org.stanislav.service.UserService;
@@ -25,8 +26,8 @@ public class ApplicationRunner {
             // clazz -> String -> Map<String, Object>
             ConnectionPool connectionPool = applicationContext.getBean("pool1", ConnectionPool.class);
             System.out.println(connectionPool);
-            CompanyRepository companyRepository = applicationContext.getBean("companyRepository", CompanyRepository.class);
-            System.out.println(companyRepository);
+            CrudRepository companyRepository = applicationContext.getBean("companyRepository", CrudRepository.class);
+            System.out.println(companyRepository.findById(1));
         }
     }
 
