@@ -3,7 +3,10 @@ package org.stanislav.database.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.stanislav.bpp.Auditing;
@@ -23,6 +26,7 @@ import java.util.Optional;
 @Transaction
 @Auditing
 @Repository
+@Scope(value = BeanDefinition.SCOPE_SINGLETON, proxyMode = ScopedProxyMode.INTERFACES)
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     private final ConnectionPool pool1;
