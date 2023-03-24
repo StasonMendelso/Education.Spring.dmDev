@@ -1,18 +1,59 @@
 package org.stanislav.database.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.stanislav.bpp.Auditing;
+import org.stanislav.bpp.InjectBean;
+import org.stanislav.bpp.Transaction;
+import org.stanislav.database.entity.Company;
 import org.stanislav.database.pool.ConnectionPool;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Stanislav Hlova
  */
-public class CompanyRepository {
-    private final ConnectionPool connectionPool;
+@Transaction
+@Auditing
+@Repository
+@Scope(value = BeanDefinition.SCOPE_SINGLETON, proxyMode = ScopedProxyMode.INTERFACES)
+public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    private CompanyRepository(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    private final ConnectionPool pool1;
+    private final List<ConnectionPool> pools;
+    private final Integer poolSize;
+    @Autowired
+    public CompanyRepository(ConnectionPool pool1,
+                             List<ConnectionPool> pools,
+                             @Value("${database.pool.size}") Integer poolSize) {
+        this.pool1 = pool1;
+        this.pools = pools;
+        this.poolSize = poolSize;
     }
 
-    public static CompanyRepository of(ConnectionPool connectionPool) {
-        return new CompanyRepository(connectionPool);
+    @PostConstruct
+    private void init() {
+        System.out.println("init company repository");
+    }
+
+    @Override
+    public Optional<Company> findById(Integer id) {
+        System.out.println("FindById method");
+        return Optional.of(new Company(id));
+    }
+
+    @Override
+    public void delete(Company entity) {
+        System.out.println("Delete method");
     }
 }
