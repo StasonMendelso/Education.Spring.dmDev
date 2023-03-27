@@ -18,7 +18,10 @@ public class ApplicationRunner {
         System.out.println(BeanFactoryPostProcessor.class.isAssignableFrom(value.getClass()));
         System.out.println(Serializable.class.isAssignableFrom(value.getClass()));
 
-        try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfiguration.class)) {
+        try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext()) {
+            applicationContext.register(ApplicationConfiguration.class);
+            applicationContext.getEnvironment().setActiveProfiles("web","production");
+            applicationContext.refresh();
             // clazz -> String -> Map<String, Object>
             ConnectionPool connectionPool = applicationContext.getBean("pool1", ConnectionPool.class);
             System.out.println(connectionPool);

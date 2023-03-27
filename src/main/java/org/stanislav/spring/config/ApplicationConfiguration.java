@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -42,6 +43,8 @@ public class ApplicationConfiguration {
                 return new ConnectionPool("test-pool",25);
         }
         @Bean
+        @Profile("production|web")
+        // ! & |
         public UserRepository userRepository2(ConnectionPool connectionPool2){
                 return new UserRepository(connectionPool2);
         }
