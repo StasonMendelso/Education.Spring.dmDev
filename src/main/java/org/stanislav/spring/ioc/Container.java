@@ -1,4 +1,4 @@
-package org.stanislav.ioc;
+package org.stanislav.spring.ioc;
 
 /**
  * @author Stanislav Hlova

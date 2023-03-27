@@ -1,4 +1,4 @@
-package org.stanislav.database.pool;
+package org.stanislav.spring.database.pool;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

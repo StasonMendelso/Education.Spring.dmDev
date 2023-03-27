@@ -1,4 +1,4 @@
-package org.stanislav.database.entity;
+package org.stanislav.spring.database.entity;
 
 /**
  * @author Stanislav Hlova

@@ -1,4 +1,4 @@
-package org.stanislav.bpp;
+package org.stanislav.spring.bpp;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

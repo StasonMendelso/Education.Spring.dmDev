@@ -1,4 +1,4 @@
-package org.stanislav.bpp;
+package org.stanislav.spring.bpp;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
  * @author Stanislav Hlova
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Transaction {
+@Target(ElementType.FIELD)
+public @interface InjectBean {
 }

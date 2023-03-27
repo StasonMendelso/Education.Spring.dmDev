@@ -1,4 +1,4 @@
-package org.stanislav.bpp;
+package org.stanislav.spring.bpp;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

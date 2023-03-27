@@ -1,16 +1,10 @@
-package org.stanislav;
+package org.stanislav.spring;
 
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.stanislav.config.ApplicationConfiguration;
-import org.stanislav.database.pool.ConnectionPool;
-import org.stanislav.database.repository.CompanyRepository;
-import org.stanislav.database.repository.CrudRepository;
-import org.stanislav.database.repository.UserRepository;
-import org.stanislav.ioc.Container;
-import org.stanislav.service.UserService;
+import org.stanislav.spring.config.ApplicationConfiguration;
+import org.stanislav.spring.database.pool.ConnectionPool;
+import org.stanislav.spring.database.repository.CrudRepository;
 
 import java.io.Serializable;
 

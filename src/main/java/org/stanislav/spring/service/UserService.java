@@ -1,12 +1,11 @@
-package org.stanislav.service;
+package org.stanislav.spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.stanislav.database.entity.Company;
-import org.stanislav.database.repository.CompanyRepository;
-import org.stanislav.database.repository.CrudRepository;
-import org.stanislav.database.repository.UserRepository;
+import org.stanislav.spring.database.entity.Company;
+import org.stanislav.spring.database.repository.CrudRepository;
+import org.stanislav.spring.database.repository.UserRepository;
 
 /**
  * @author Stanislav Hlova

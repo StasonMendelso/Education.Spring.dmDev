@@ -1,22 +1,17 @@
-package org.stanislav.database.repository;
+package org.stanislav.spring.database.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.stanislav.bpp.Auditing;
-import org.stanislav.bpp.InjectBean;
-import org.stanislav.bpp.Transaction;
-import org.stanislav.database.entity.Company;
-import org.stanislav.database.pool.ConnectionPool;
+import org.stanislav.spring.bpp.Auditing;
+import org.stanislav.spring.bpp.Transaction;
+import org.stanislav.spring.database.entity.Company;
+import org.stanislav.spring.database.pool.ConnectionPool;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 

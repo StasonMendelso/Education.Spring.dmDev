@@ -1,4 +1,4 @@
-package org.stanislav.database.repository;
+package org.stanislav.spring.database.repository;
 
 import java.util.Optional;
 

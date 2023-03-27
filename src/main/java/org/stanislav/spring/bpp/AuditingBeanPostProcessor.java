@@ -1,8 +1,7 @@
-package org.stanislav.bpp;
+package org.stanislav.spring.bpp;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Proxy;

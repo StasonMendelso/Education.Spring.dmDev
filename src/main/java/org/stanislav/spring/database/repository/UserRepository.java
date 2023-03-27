@@ -1,8 +1,8 @@
-package org.stanislav.database.repository;
+package org.stanislav.spring.database.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.stanislav.database.pool.ConnectionPool;
+import org.stanislav.spring.database.pool.ConnectionPool;
 
 /**
  * @author Stanislav Hlova

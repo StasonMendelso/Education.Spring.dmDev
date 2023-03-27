@@ -1,17 +1,16 @@
-package org.stanislav.bfpp;
+package org.stanislav.spring.bfpp;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.core.Ordered;
-import org.springframework.core.PriorityOrdered;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Stanislav Hlova
  */
 @Component
-public class LogBeanFactoryPostProcessor implements BeanFactoryPostProcessor, PriorityOrdered {
+public class VerifyBreakpointBeanFactoryPostProcessor implements BeanFactoryPostProcessor, Ordered {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         System.out.println();
@@ -19,6 +18,6 @@ public class LogBeanFactoryPostProcessor implements BeanFactoryPostProcessor, Pr
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
+        return 0;
     }
 }
