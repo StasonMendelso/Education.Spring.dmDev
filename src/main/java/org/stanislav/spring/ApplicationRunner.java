@@ -5,6 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.stanislav.spring.config.ApplicationConfiguration;
 import org.stanislav.spring.database.pool.ConnectionPool;
 import org.stanislav.spring.database.repository.CrudRepository;
+import org.stanislav.spring.service.CompanyService;
 
 import java.io.Serializable;
 
@@ -25,7 +26,7 @@ public class ApplicationRunner {
             // clazz -> String -> Map<String, Object>
             ConnectionPool connectionPool = applicationContext.getBean("pool1", ConnectionPool.class);
             System.out.println(connectionPool);
-            CrudRepository companyRepository = applicationContext.getBean("companyRepository", CrudRepository.class);
+            CompanyService companyRepository = applicationContext.getBean("companyService", CompanyService.class);
             System.out.println(companyRepository.findById(1));
         }
     }
