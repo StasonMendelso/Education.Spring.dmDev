@@ -1,12 +1,18 @@
 package org.stanislav.spring.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.stanislav.spring.database.pool.ConnectionPool;
 import org.stanislav.spring.database.repository.CrudRepository;
+import org.stanislav.spring.database.repository.UserRepository;
 import org.stanislav.web.config.WebConfiguration;
 
 /**
@@ -25,4 +31,14 @@ import org.stanislav.web.config.WebConfiguration;
         })
 public class ApplicationConfiguration {
 
+        @Bean("connectionPool2")
+        @Scope(BeanDefinition.SCOPE_SINGLETON)
+        public ConnectionPool connectionPool2(@Value("${database.username}") String username){
+                return new ConnectionPool(username,10);
+        }
+
+        @Bean
+        public UserRepository userRepository2(ConnectionPool connectionPool2){
+                return new UserRepository(connectionPool2);
+        }
 }
