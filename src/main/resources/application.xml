@@ -10,7 +10,7 @@
                             scoped-proxy="no"
                             use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
-        <context:include-filter type="assignable" expression="org.stanislav.database.repository.CrudRepository"/>
+        <context:include-filter type="assignable" expression="org.stanislav.spring.database.repository.CrudRepository"/>
         <context:include-filter type="regex" expression="org\..+Repository"/>
     </context:component-scan>
     <context:property-placeholder location="classpath*:application.properties"/>
