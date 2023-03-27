@@ -20,7 +20,7 @@ import org.stanislav.web.config.WebConfiguration;
  */
 //@ImportResource(value = "classpath:application.xml")
 @Import(value = {WebConfiguration.class})
-@Configuration
+@Configuration(proxyBeanMethods = true)
 @PropertySource(value = "classpath:application.properties")
 @ComponentScan(basePackages = "org.stanislav.spring",
         useDefaultFilters = false,
@@ -38,7 +38,18 @@ public class ApplicationConfiguration {
         }
 
         @Bean
+        public ConnectionPool connectionPool3(){
+                return new ConnectionPool("test-pool",25);
+        }
+        @Bean
         public UserRepository userRepository2(ConnectionPool connectionPool2){
                 return new UserRepository(connectionPool2);
         }
+        @Bean
+        public UserRepository userRepository3(){
+                ConnectionPool connectionPool1 = connectionPool3();
+                ConnectionPool connectionPool2 = connectionPool3();
+                return new UserRepository(connectionPool3());
+        }
+
 }
