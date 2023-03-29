@@ -1,6 +1,7 @@
 package org.stanislav.spring.database.repository;
 
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -22,19 +23,14 @@ import java.util.Optional;
 @Auditing
 @Repository
 @Scope(value = BeanDefinition.SCOPE_SINGLETON, proxyMode = ScopedProxyMode.DEFAULT)
+@RequiredArgsConstructor
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     private final ConnectionPool pool1;
     private final List<ConnectionPool> pools;
+    @Value("${database.pool.size}")
     private final Integer poolSize;
-    @Autowired
-    public CompanyRepository(ConnectionPool pool1,
-                             List<ConnectionPool> pools,
-                             @Value("${database.pool.size}") Integer poolSize) {
-        this.pool1 = pool1;
-        this.pools = pools;
-        this.poolSize = poolSize;
-    }
+
 
     @PostConstruct
     private void init() {

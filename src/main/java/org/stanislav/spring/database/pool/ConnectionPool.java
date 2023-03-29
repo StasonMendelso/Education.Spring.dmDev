@@ -3,7 +3,7 @@ package org.stanislav.spring.database.pool;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,17 +12,12 @@ import org.springframework.stereotype.Component;
  * @author Stanislav Hlova
  */
 @Component(value = "pool1")
+@RequiredArgsConstructor
 public class ConnectionPool{
+    @Value("${database.username}")
     private final String username;
+    @Value("${database.pool.size}")
     private final Integer poolSize;
-
-    @Autowired
-    public ConnectionPool(@Value("${database.username}") String username,
-                          @Value("${database.pool.size}") Integer poolSize) {
-        this.username = username;
-        this.poolSize = poolSize;
-    }
-
 
     @PostConstruct
     private void init() {
