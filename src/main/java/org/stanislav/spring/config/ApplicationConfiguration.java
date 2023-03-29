@@ -22,14 +22,6 @@ import org.stanislav.web.config.WebConfiguration;
 //@ImportResource(value = "classpath:application.xml")
 @Import(value = {WebConfiguration.class})
 @Configuration(proxyBeanMethods = true)
-@PropertySource(value = "classpath:application.properties")
-@ComponentScan(basePackages = "org.stanislav.spring",
-        useDefaultFilters = false,
-        includeFilters = {
-        @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Component.class),
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org\\..+Repository")
-        })
 public class ApplicationConfiguration {
 
         @Bean("connectionPool2")
