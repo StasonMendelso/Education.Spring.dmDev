@@ -2,6 +2,7 @@ package org.stanislav.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author Stanislav Hlova
@@ -9,7 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ApplicationRunner {
     public static void main(String[] args) {
-        SpringApplication.run(ApplicationRunner.class,args);
+         ConfigurableApplicationContext context = SpringApplication.run(ApplicationRunner.class,args);
+        System.out.println(context.getBeanDefinitionNames());
     }
 
 }
