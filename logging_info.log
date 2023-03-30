@@ -1,0 +1,21 @@
+2023-03-30T09:54:28.366+03:00  INFO 23520 --- [main] o.s.spring.config.JpaConfiguration       : Jpa configuration is enabled.
+2023-03-30T09:54:28.374+03:00  INFO 23520 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T09:54:28.377+03:00  INFO 23520 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T09:54:28.377+03:00  INFO 23520 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T09:54:28.440+03:00  INFO 23520 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
+2023-03-30T09:54:28.440+03:00  INFO 23520 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
+2023-03-30T09:54:28.440+03:00  INFO 23520 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
+2023-03-30T10:00:44.925+03:00  INFO 13776 --- [main] o.s.spring.config.JpaConfiguration       : Jpa configuration is enabled.
+2023-03-30T10:00:44.931+03:00  INFO 13776 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T10:00:44.935+03:00  INFO 13776 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T10:00:44.936+03:00  INFO 13776 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T10:00:45.004+03:00  INFO 13776 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
+2023-03-30T10:00:45.004+03:00  INFO 13776 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
+2023-03-30T10:00:45.004+03:00  INFO 13776 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
+2023-03-30T10:01:14.894+03:00  INFO 4296 --- [main] o.s.spring.config.JpaConfiguration       : Jpa configuration is enabled.
+2023-03-30T10:01:14.901+03:00  INFO 4296 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T10:01:14.905+03:00  INFO 4296 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T10:01:14.905+03:00  INFO 4296 --- [main] o.s.spring.database.pool.ConnectionPool  : Init connection pool.
+2023-03-30T10:01:14.970+03:00  INFO 4296 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
+2023-03-30T10:01:14.970+03:00  INFO 4296 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
+2023-03-30T10:01:14.970+03:00  INFO 4296 --- [SpringApplicationShutdownHook] o.s.spring.database.pool.ConnectionPool  : Clean connection pool
