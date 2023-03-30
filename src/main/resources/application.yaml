@@ -27,5 +27,4 @@ logging:
     org.stanislav.spring.database.pool: INFO
     org.stanislav.spring.config.JpaConfiguration: INFO
   file:
-    name: logging_info.log
-    path: /
+    name: logs/logging_info.log
