@@ -2,6 +2,7 @@ package org.stanislav.spring.database.repository;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -24,6 +25,7 @@ import java.util.Optional;
 @Repository
 @Scope(value = BeanDefinition.SCOPE_SINGLETON, proxyMode = ScopedProxyMode.DEFAULT)
 @RequiredArgsConstructor
+@Slf4j
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     private final ConnectionPool pool1;
@@ -34,12 +36,12 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     @PostConstruct
     private void init() {
-        System.out.println("init company repository");
+        log.info("init company repository");
     }
 
     @Override
     public Optional<Company> findById(Integer id) {
-        System.out.println("FindById method");
+        log.info("FindById method");
         return Optional.of(new Company(id));
     }
 

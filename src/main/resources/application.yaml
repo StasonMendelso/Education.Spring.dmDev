@@ -20,3 +20,11 @@ database:
       timeout: 3
 
 spring.profiles.active: qa
+
+logging:
+  level:
+    root: WARN
+    org.stanislav.spring.database.pool: INFO
+    org.stanislav.spring.config.JpaConfiguration: INFO
+  file:
+    name: logs/logging_info.log

@@ -1,8 +1,7 @@
 package org.stanislav.spring.config;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.stanislav.spring.config.condition.JpaCondition;
@@ -13,6 +12,7 @@ import org.stanislav.spring.config.condition.JpaCondition;
  */
 @Conditional({JpaCondition.class})
 @Configuration
+@Slf4j
 public class JpaConfiguration {
 //    @Bean
 //    @ConfigurationProperties(prefix = "database")
@@ -22,6 +22,6 @@ public class JpaConfiguration {
 
     @PostConstruct
     void init() {
-        System.out.println("Jpa configuration is enabled.");
+        log.info("Jpa configuration is enabled.");
     }
 }
