@@ -20,6 +20,7 @@ import org.stanislav.spring.database.repository.CrudRepository;
 import org.stanislav.spring.dto.CompanyReadDto;
 import org.stanislav.spring.listener.entity.EntityEvent;
 
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -39,7 +40,7 @@ class CompanyServiceTest {
 
     @Test
     void findById() {
-        doReturn(Optional.of(new Company(COMPANY_ID)))
+        doReturn(Optional.of(new Company(COMPANY_ID, null, Collections.emptyMap())))
                 .when(companyRepository).findById(COMPANY_ID);
 
 
@@ -50,6 +51,6 @@ class CompanyServiceTest {
         assertEquals(expected, actual.get());
 
         verify(eventPublisher).publishEvent(any(EntityEvent.class));
-        verifyNoMoreInteractions(userService,eventPublisher);
+        verifyNoMoreInteractions(userService, eventPublisher);
     }
 }

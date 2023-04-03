@@ -14,6 +14,7 @@ import org.stanislav.spring.bpp.Transaction;
 import org.stanislav.spring.database.entity.Company;
 import org.stanislav.spring.database.pool.ConnectionPool;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,7 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
     @Override
     public Optional<Company> findById(Integer id) {
         log.info("FindById method");
-        return Optional.of(new Company(id));
+        return Optional.of(new Company(id,null, Collections.emptyMap()));
     }
 
     @Override
