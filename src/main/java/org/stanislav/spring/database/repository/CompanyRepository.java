@@ -20,12 +20,12 @@ import java.util.Optional;
 /**
  * @author Stanislav Hlova
  */
+@Slf4j
+@Repository
+@Scope(value = BeanDefinition.SCOPE_PROTOTYPE)
 @Transaction
 @Auditing
-@Repository
-@Scope(value = BeanDefinition.SCOPE_SINGLETON, proxyMode = ScopedProxyMode.DEFAULT)
 @RequiredArgsConstructor
-@Slf4j
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     private final ConnectionPool pool1;
