@@ -27,7 +27,7 @@ public class AuditingBeanPostProcessor implements BeanPostProcessor{
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         Class<?> beanClass = auditBeans.get(beanName);
         if (beanClass != null) {
-            return Proxy.newProxyInstance(bean.getClass().getClassLoader(), bean.getClass().getInterfaces(),
+            return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(),
                     (proxy, method, args) -> {
                         System.out.println("Audit method: " + method.getName());
                         long startTime = System.nanoTime();
