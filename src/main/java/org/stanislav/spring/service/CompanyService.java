@@ -24,7 +24,7 @@ public class CompanyService {
     private final CrudRepository<Integer, Company> companyRepository;
     private final ApplicationEventPublisher eventPublisher;
 
-
+    @Transactional
     public Optional<CompanyReadDto> findById(int id) {
         return companyRepository.findById(id).map((entity) -> {
             eventPublisher.publishEvent(new EntityEvent(entity, AccessType.READ));
