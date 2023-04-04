@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.stanislav.spring.database.entity.Company;
 import org.stanislav.spring.database.repository.CrudRepository;
 import org.stanislav.spring.dto.CompanyReadDto;
@@ -23,7 +24,7 @@ public class CompanyService {
     private final CrudRepository<Integer, Company> companyRepository;
     private final ApplicationEventPublisher eventPublisher;
 
-
+    @Transactional
     public Optional<CompanyReadDto> findById(int id) {
         return companyRepository.findById(id).map((entity) -> {
             eventPublisher.publishEvent(new EntityEvent(entity, AccessType.READ));
