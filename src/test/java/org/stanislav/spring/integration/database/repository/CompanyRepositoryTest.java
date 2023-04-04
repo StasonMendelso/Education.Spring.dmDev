@@ -10,9 +10,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.stanislav.spring.database.entity.Company;
 import org.stanislav.spring.integration.annotation.IntegrationTest;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -20,12 +22,11 @@ import java.util.Map;
  */
 @IntegrationTest
 @RequiredArgsConstructor
-@Transactional //only import from springframework
-//@Commit
 @Rollback(value = true) //default
 class CompanyRepositoryTest {
 
     private final EntityManager entityManager;
+    private final TransactionTemplate transactionTemplate;
 
     @BeforeTransaction
     void beforeTransaction() {
@@ -39,11 +40,13 @@ class CompanyRepositoryTest {
 
     @Test
     void findById() {
-        Company company = entityManager.find(Company.class, 1);
-        System.out.println(company);
+        transactionTemplate.executeWithoutResult(transactionStatus -> {
+                Company company = entityManager.find(Company.class, 1);
+                System.out.println(company);
 
-        assertNotNull(company);
-        assertThat(company.getLocales()).hasSize(2);
+                assertNotNull(company);
+                assertThat(company.getLocales()).hasSize(2);
+        });
     }
 
     @Test
