@@ -8,11 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.stanislav.spring.database.pool.ConnectionPool;
-import org.stanislav.spring.database.repository.CrudRepository;
 import org.stanislav.spring.database.repository.UserRepository;
 import org.stanislav.web.config.WebConfiguration;
 

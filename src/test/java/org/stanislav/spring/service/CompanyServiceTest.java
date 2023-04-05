@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 import org.stanislav.spring.database.entity.Company;
-import org.stanislav.spring.database.repository.CrudRepository;
+import org.stanislav.spring.database.repository.CompanyRepository;
 import org.stanislav.spring.dto.CompanyReadDto;
 import org.stanislav.spring.listener.entity.EntityEvent;
 
@@ -32,7 +32,7 @@ class CompanyServiceTest {
     @Mock
     private UserService userService;
     @Mock
-    private CrudRepository<Integer, Company> companyRepository;
+    private CompanyRepository companyRepository;
     @Mock
     private ApplicationEventPublisher eventPublisher;
     @InjectMocks
