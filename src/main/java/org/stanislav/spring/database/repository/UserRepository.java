@@ -1,18 +1,19 @@
 package org.stanislav.spring.database.repository;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
-import org.stanislav.spring.database.pool.ConnectionPool;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.stanislav.spring.database.entity.User;
+
+import java.util.List;
 
 /**
  * @author Stanislav Hlova
  */
-@Repository
-@RequiredArgsConstructor
-public class UserRepository {
-    @Qualifier("connectionPool2")
-    private final ConnectionPool connectionPool;
+public interface UserRepository extends JpaRepository<User, Long> {
+    @Query("SELECT u FROM User u WHERE u.firstname LIKE %:firstname% and u.lastname LIKE %:lastname%")
+    List<User> findAllBy(String firstname, String lastname);
 
+    @Query(value = "SELECT u.* FROM users u WHERE u.username = :username",
+            nativeQuery = true) //for projection
+    List<User> findAllByUsername(String username);
 }

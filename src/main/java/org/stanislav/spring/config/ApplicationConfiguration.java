@@ -32,17 +32,17 @@ public class ApplicationConfiguration {
         public ConnectionPool connectionPool3(){
                 return new ConnectionPool("test-pool",25);
         }
-        @Bean
-        @Profile("production|web")
-        // ! & |
-        public UserRepository userRepository2(ConnectionPool connectionPool2){
-                return new UserRepository(connectionPool2);
-        }
-        @Bean
-        public UserRepository userRepository3(){
-                ConnectionPool connectionPool1 = connectionPool3();
-                ConnectionPool connectionPool2 = connectionPool3();
-                return new UserRepository(connectionPool3());
-        }
+//        @Bean
+//        @Profile("production|web")
+//        // ! & |
+//        public UserRepository userRepository2(ConnectionPool connectionPool2){
+//                return new UserRepository(connectionPool2);
+//        }
+//        @Bean
+//        public UserRepository userRepository3(){
+//                ConnectionPool connectionPool1 = connectionPool3();
+//                ConnectionPool connectionPool2 = connectionPool3();
+//                return new UserRepository(connectionPool3());
+//        }
 
 }
