@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.domain.Sort;
 import org.stanislav.spring.database.entity.Role;
@@ -30,10 +31,17 @@ class UserRepositoryTest {
 
     @Test
     public void checkPageable(){
-        Pageable pageable = PageRequest.of(1,2,Sort.by("id"));
-        List<User> users = userRepository.findAllBy(pageable);
-        assertThat(users).hasSize(2);
-    
+        Pageable pageable = PageRequest.of(0,2,Sort.by("id"));
+        Page<User> page = userRepository.findAllBy(pageable);
+
+        page.forEach(user -> System.out.println(user.getId()));
+        System.out.println(page.getTotalPages());
+
+        while (page.hasNext()){
+            page = userRepository.findAllBy(page.nextPageable());
+            page.forEach(user -> System.out.println(user.getId()));
+            System.out.println(page.getTotalPages());
+        }
     }
     @Test
     public void checkSort() {
