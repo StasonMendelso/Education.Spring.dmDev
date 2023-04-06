@@ -4,7 +4,13 @@ import lombok.RequiredArgsConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.SliceImpl;
+import org.springframework.data.domain.Sort;
 import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.database.entity.User;
 import org.stanislav.spring.database.repository.UserRepository;
@@ -12,6 +18,7 @@ import org.stanislav.spring.integration.annotation.IntegrationTest;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Stanislav Hlova
@@ -22,18 +29,50 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
 
     @Test
+    public void checkPageable(){
+        Pageable pageable = PageRequest.of(1,2,Sort.by("id"));
+        List<User> users = userRepository.findAllBy(pageable);
+        assertThat(users).hasSize(2);
+    
+    }
+    @Test
+    public void checkSort() {
+        Sort.TypedSort<User> sortBy = Sort.sort(User.class);
+        Sort sort = sortBy.by(User::getFirstname).and(sortBy.by(User::getLastname));
+
+        Sort sortByFirstAndLastname = Sort.by("firstname").and(Sort.by("lastname"));
+        List<User> allUsers = userRepository.findTop3ByBirthDateBefore(LocalDate.now(), sortByFirstAndLastname);
+        assertThat(allUsers).hasSize(3);
+    }
+
+    @Test
+    public void findTop3Users() {
+        Sort sort = Sort.by("firstname").and(Sort.by("lastname"));
+        List<User> allUsers = userRepository.findTop3ByBirthDateBefore(LocalDate.now(), sort);
+        assertThat(allUsers).hasSize(3);
+    }
+
+    @Test
+    public void checkFirst() {
+        Optional<User> firstUser = userRepository.findFirstByOrderByIdDesc();
+
+        assertTrue(firstUser.isPresent());
+        firstUser.ifPresent(user -> assertEquals(5L, user.getId()));
+    }
+
+    @Test
     public void checkUpdate() {
         User ivan = userRepository.getById(1L);
-        assertSame(Role.ADMIN,ivan.getRole());
+        assertSame(Role.ADMIN, ivan.getRole());
         ivan.setBirthDate(LocalDate.now());
 
         int resultCount = userRepository.updateRole(Role.USER, 1L, 5L);
-        assertEquals(2,resultCount);
+        assertEquals(2, resultCount);
 
         ivan.getCompany().getName();
 
         User theSameIvan = userRepository.getById(1L);
-        assertSame(Role.USER,theSameIvan.getRole());
+        assertSame(Role.USER, theSameIvan.getRole());
     }
 
     @Test
