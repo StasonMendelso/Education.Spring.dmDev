@@ -30,19 +30,20 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
 
     @Test
-    public void checkPageable(){
-        Pageable pageable = PageRequest.of(0,2,Sort.by("id"));
+    public void checkPageable() {
+        Pageable pageable = PageRequest.of(1, 2, Sort.by("id"));
         Page<User> page = userRepository.findAllBy(pageable);
 
-        page.forEach(user -> System.out.println(user.getId()));
+        page.forEach(user -> System.out.println(user.getCompany().getName()));
         System.out.println(page.getTotalPages());
 
-        while (page.hasNext()){
+        while (page.hasNext()) {
             page = userRepository.findAllBy(page.nextPageable());
-            page.forEach(user -> System.out.println(user.getId()));
+            page.forEach(user -> System.out.println(user.getCompany().getName()));
             System.out.println(page.getTotalPages());
         }
     }
+
     @Test
     public void checkSort() {
         Sort.TypedSort<User> sortBy = Sort.sort(User.class);

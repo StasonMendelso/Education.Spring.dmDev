@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,6 +37,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Default: Collection, Stream
     // Spring: Streamable <- Slice <- Page
+
+//    @EntityGraph(value = "User.company")
+    @EntityGraph(attributePaths = {"company", "company.locales"}) // Pageable может работать неправильно
     @Query(value = "select u FROM User u", countQuery = "select count(distinct  u.firstname) from User  u")
     Page<User> findAllBy(Pageable pageable);
 }
