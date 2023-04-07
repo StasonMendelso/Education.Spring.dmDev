@@ -31,7 +31,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 class UserRepositoryTest {
     private final UserRepository userRepository;
-
+    @Test
+    public void checkAuditing(){
+        User user = userRepository.findById(1L).get();
+        user.setBirthDate(LocalDate.now());
+        userRepository.flush();
+        System.out.println(user);
+    }
     @Test
     public void checkCustomRepositoryImpl() {
         UserFilter userFilter = UserFilter.builder()
