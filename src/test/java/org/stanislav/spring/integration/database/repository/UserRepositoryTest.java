@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.database.entity.User;
 import org.stanislav.spring.database.repository.UserRepository;
@@ -32,9 +33,10 @@ import java.util.Optional;
 class UserRepositoryTest {
     private final UserRepository userRepository;
     @Test
+    @Commit
     public void checkAuditing(){
         User user = userRepository.findById(1L).get();
-        user.setBirthDate(LocalDate.now());
+        user.setBirthDate(LocalDate.now().plusMonths(1));
         userRepository.flush();
         System.out.println(user);
     }

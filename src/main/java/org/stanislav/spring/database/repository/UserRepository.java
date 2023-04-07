@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
+import org.springframework.data.repository.history.RevisionRepository;
 import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.database.entity.User;
 import org.stanislav.spring.dto.PersonalInfo;
@@ -24,7 +25,10 @@ import java.util.Optional;
 /**
  * @author Stanislav Hlova
  */
-public interface UserRepository extends JpaRepository<User, Long>, FilterUserRepository {
+public interface UserRepository extends
+        JpaRepository<User, Long>,
+        FilterUserRepository,
+        RevisionRepository<User, Long, Integer> {
     @Query("SELECT u FROM User u WHERE u.firstname LIKE %:firstname% and u.lastname LIKE %:lastname%")
     List<User> findAllBy(String firstname, String lastname);
 
@@ -51,10 +55,10 @@ public interface UserRepository extends JpaRepository<User, Long>, FilterUserRep
     @Query(value = "select u FROM User u", countQuery = "select count(distinct  u.firstname) from User  u")
     Page<User> findAllBy(Pageable pageable);
 
-//    <T> List<T> findAllByCompanyId(Integer companyId, Class<T> clazz);
+    //    <T> List<T> findAllByCompanyId(Integer companyId, Class<T> clazz);
     @Query(value = "SELECT firstname, lastname, birth_date birthDate " +
             "FROM users " +
             "WHERE company_id = :companyId",
-    nativeQuery = true)
+            nativeQuery = true)
     List<PersonalInfo2> findAllByCompanyId(Integer companyId);
 }
