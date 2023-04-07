@@ -8,11 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.stanislav.spring.database.pool.ConnectionPool;
-import org.stanislav.spring.database.repository.CrudRepository;
 import org.stanislav.spring.database.repository.UserRepository;
 import org.stanislav.web.config.WebConfiguration;
 
@@ -34,17 +32,17 @@ public class ApplicationConfiguration {
         public ConnectionPool connectionPool3(){
                 return new ConnectionPool("test-pool",25);
         }
-        @Bean
-        @Profile("production|web")
-        // ! & |
-        public UserRepository userRepository2(ConnectionPool connectionPool2){
-                return new UserRepository(connectionPool2);
-        }
-        @Bean
-        public UserRepository userRepository3(){
-                ConnectionPool connectionPool1 = connectionPool3();
-                ConnectionPool connectionPool2 = connectionPool3();
-                return new UserRepository(connectionPool3());
-        }
+//        @Bean
+//        @Profile("production|web")
+//        // ! & |
+//        public UserRepository userRepository2(ConnectionPool connectionPool2){
+//                return new UserRepository(connectionPool2);
+//        }
+//        @Bean
+//        public UserRepository userRepository3(){
+//                ConnectionPool connectionPool1 = connectionPool3();
+//                ConnectionPool connectionPool2 = connectionPool3();
+//                return new UserRepository(connectionPool3());
+//        }
 
 }

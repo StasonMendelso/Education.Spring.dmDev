@@ -5,17 +5,16 @@ import lombok.RequiredArgsConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.context.transaction.BeforeTransaction;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.stanislav.spring.database.entity.Company;
+import org.stanislav.spring.database.repository.CompanyRepository;
 import org.stanislav.spring.integration.annotation.IntegrationTest;
 
-import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Stanislav Hlova
@@ -25,8 +24,10 @@ import java.util.Map;
 @Rollback(value = true) //default
 class CompanyRepositoryTest {
 
+    public static final int AMAZON_ID = 8;
     private final EntityManager entityManager;
     private final TransactionTemplate transactionTemplate;
+    private final CompanyRepository companyRepository;
 
     @BeforeTransaction
     void beforeTransaction() {
@@ -39,13 +40,27 @@ class CompanyRepositoryTest {
     }
 
     @Test
+    void checkFindByQueries(){
+        companyRepository.findByName("google");
+        companyRepository.findAllByNameContainingIgnoreCase("a");
+    }
+    @Test
+    void delete() {
+        Optional<Company> maybeCompany = companyRepository.findById(AMAZON_ID);
+        assertTrue(maybeCompany.isPresent());
+        maybeCompany.ifPresent(companyRepository::delete);
+        entityManager.flush();
+        assertTrue(companyRepository.findById(AMAZON_ID).isEmpty());
+    }
+
+    @Test
     void findById() {
         transactionTemplate.executeWithoutResult(transactionStatus -> {
-                Company company = entityManager.find(Company.class, 1);
-                System.out.println(company);
+            Company company = entityManager.find(Company.class, 1);
+            System.out.println(company);
 
-                assertNotNull(company);
-                assertThat(company.getLocales()).hasSize(2);
+            assertNotNull(company);
+            assertThat(company.getLocales()).hasSize(2);
         });
     }
 

@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NamedQuery;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,11 @@ import java.util.Map;
 /**
  * @author Stanislav Hlova
  */
+@NamedQuery(
+        name = "Company.findByName",
+        query = "SELECT c FROM Company c WHERE LOWER(c.name) =LOWER(:name2)"
+//        query = "SELECT c FROM Company c WHERE c.name = ?1"
+)
 @Entity
 @Table(name = "company")
 @Data
@@ -36,7 +42,7 @@ public class Company implements BaseEntity<Integer> {
 
     @Builder.Default
     @ElementCollection
-    @CollectionTable(name = "company_locales",joinColumns = @JoinColumn(name = "company_id"))
+    @CollectionTable(name = "company_locales", joinColumns = @JoinColumn(name = "company_id"))
     @MapKeyColumn(name = "lang")
     @Column(name = "description")
     private Map<String, String> locales = new HashMap<>();
