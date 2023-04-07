@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * @author Stanislav Hlova
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, FilterUserRepository {
     @Query("SELECT u FROM User u WHERE u.firstname LIKE %:firstname% and u.lastname LIKE %:lastname%")
     List<User> findAllBy(String firstname, String lastname);
 

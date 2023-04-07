@@ -17,6 +17,7 @@ import org.stanislav.spring.database.entity.User;
 import org.stanislav.spring.database.repository.UserRepository;
 import org.stanislav.spring.dto.PersonalInfo;
 import org.stanislav.spring.dto.PersonalInfo2;
+import org.stanislav.spring.dto.UserFilter;
 import org.stanislav.spring.integration.annotation.IntegrationTest;
 
 import java.time.LocalDate;
@@ -30,6 +31,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 class UserRepositoryTest {
     private final UserRepository userRepository;
+
+    @Test
+    public void checkCustomRepositoryImpl() {
+        UserFilter userFilter = UserFilter.builder()
+                .lastName("%ov%")
+                .birthDate(LocalDate.now())
+                .build();
+        List<User> users = userRepository.findAllByFilter(userFilter);
+        System.out.println(users);
+    }
 
     @Test
     public void checkProjections() {
