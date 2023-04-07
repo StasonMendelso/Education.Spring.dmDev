@@ -15,6 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.database.entity.User;
 import org.stanislav.spring.database.repository.UserRepository;
+import org.stanislav.spring.dto.PersonalInfo;
+import org.stanislav.spring.dto.PersonalInfo2;
 import org.stanislav.spring.integration.annotation.IntegrationTest;
 
 import java.time.LocalDate;
@@ -28,6 +30,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 class UserRepositoryTest {
     private final UserRepository userRepository;
+
+    @Test
+    public void checkProjections() {
+        List<PersonalInfo2> personalInfos = userRepository.findAllByCompanyId(1);
+        assertThat(personalInfos).hasSize(2);
+        System.out.println(personalInfos);
+    }
 
     @Test
     public void checkPageable() {
