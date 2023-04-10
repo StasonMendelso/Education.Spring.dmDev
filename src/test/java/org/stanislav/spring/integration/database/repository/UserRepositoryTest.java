@@ -32,6 +32,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 class UserRepositoryTest {
     private final UserRepository userRepository;
+
+    @Test
+    public void checkJdbcTemplate(){
+        List<PersonalInfo> list = userRepository.findAllByCompanyIdAndRole(1,Role.USER);
+        assertThat(list).hasSize(1);
+        System.out.println(list);
+    }
     @Test
     @Commit
     public void checkAuditing(){

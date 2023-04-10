@@ -27,6 +27,7 @@ logging:
     root: INFO
     org.stanislav.spring.database.pool: INFO
     org.stanislav.spring.config.JpaConfiguration: INFO
+    org.springframework.jdbc.core: TRACE
   file:
     name: logs/logging_info.log
 spring:

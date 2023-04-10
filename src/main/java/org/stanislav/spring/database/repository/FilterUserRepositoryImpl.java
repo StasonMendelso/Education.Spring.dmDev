@@ -6,7 +6,10 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.database.entity.User;
+import org.stanislav.spring.dto.PersonalInfo;
 import org.stanislav.spring.dto.UserFilter;
 
 import java.util.ArrayList;
@@ -19,6 +22,17 @@ import java.util.List;
 public class FilterUserRepositoryImpl implements FilterUserRepository {
 
     private final EntityManager entityManager;
+    private final JdbcTemplate jdbcTemplate;
+
+    private static final String FIND_BY_COMPANY_AND_ROLE = """
+            SELECT 
+                firstname,
+                lastname,
+                birth_date
+            FROM users
+            WHERE company_id = ?
+                AND role = ?
+            """;
 
     @Override
     public List<User> findAllByFilter(UserFilter userFilter) {
@@ -40,5 +54,13 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
         criteriaQuery.where(predicates.toArray(Predicate[]::new));
 
         return entityManager.createQuery(criteriaQuery).getResultList();
+    }
+
+    @Override
+    public List<PersonalInfo> findAllByCompanyIdAndRole(Integer companyId, Role role) {
+        return jdbcTemplate.query(FIND_BY_COMPANY_AND_ROLE, (rs, rowNum) -> new PersonalInfo(
+                rs.getString("firstname"),
+                rs.getString("lastname"),
+                rs.getDate("birth_date").toLocalDate()), companyId, role.name());
     }
 }
