@@ -33,6 +33,13 @@ import java.util.Optional;
 class UserRepositoryTest {
     private final UserRepository userRepository;
 
+
+    @Test
+    public void checkBatch(){
+        List<User> users = userRepository.findAll();
+        userRepository.updateCompanyAndRole(users);
+        System.out.println();
+    }
     @Test
     public void checkJdbcTemplate(){
         List<PersonalInfo> list = userRepository.findAllByCompanyIdAndRole(1,Role.USER);
