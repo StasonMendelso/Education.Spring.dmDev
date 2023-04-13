@@ -1,7 +1,10 @@
+--liquibase formatted sql
+
+--changeset stanislav:1
 ALTER TABLE users
-ADD COLUMN created_at timestamp;
+    ADD COLUMN created_at timestamp;
 ALTER TABLE users
-ADD COLUMN modified_at timestamp;
+    ADD COLUMN modified_at timestamp;
 
 ALTER TABLE users
     ADD COLUMN created_by varchar(32);

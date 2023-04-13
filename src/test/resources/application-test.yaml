@@ -13,5 +13,5 @@ spring:
     properties:
       hibernate:
         hbm2ddl:
-          auto: update
+          auto: validate
         dialect: org.hibernate.dialect.PostgreSQLDialect
