@@ -22,6 +22,7 @@ import org.stanislav.spring.database.repository.UserRepository;
 import org.stanislav.spring.dto.PersonalInfo;
 import org.stanislav.spring.dto.PersonalInfo2;
 import org.stanislav.spring.dto.UserFilter;
+import org.stanislav.spring.integration.IntegrationTestBase;
 import org.stanislav.spring.integration.annotation.IntegrationTest;
 import org.stanislav.spring.integration.testService.TestDatabaseService;
 
@@ -32,15 +33,13 @@ import java.util.Optional;
 /**
  * @author Stanislav Hlova
  */
-@IntegrationTest
-@Sql(scripts = "classpath:sql/data.sql") //not work properly
 @RequiredArgsConstructor
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationTestBase {
     private final UserRepository userRepository;
 
     private final TestDatabaseService testDatabaseService;
-    
+
     @AfterEach
     void tearDown() {
   //      testDatabaseService.resetDatabaseTables();
@@ -61,7 +60,6 @@ class UserRepositoryTest {
     }
 
     @Test
-    @Commit
     public void checkAuditing() {
         User user = userRepository.findById(1L).get();
         user.setBirthDate(LocalDate.now().plusMonths(1));
