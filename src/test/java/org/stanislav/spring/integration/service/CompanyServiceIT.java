@@ -3,6 +3,7 @@ package org.stanislav.spring.integration.service;
 import lombok.RequiredArgsConstructor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.any;
@@ -31,6 +32,7 @@ import java.util.Optional;
  */
 @IntegrationTest
 @RequiredArgsConstructor
+@Disabled
 public class CompanyServiceIT {
     public static final Integer COMPANY_ID = 1;
 

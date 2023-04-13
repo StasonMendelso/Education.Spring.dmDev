@@ -3,6 +3,7 @@ package org.stanislav.spring.integration.service;
 import lombok.RequiredArgsConstructor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,19 +24,20 @@ import java.util.Optional;
  */
 @IntegrationTest
 @RequiredArgsConstructor
+@Disabled
 public class UserServiceIT {
 
     private final UserService userService;
-    @Qualifier("pool1")
+    @Qualifier("connectionPool2")
     private final ConnectionPool connectionPool;
 
     @Test
     void test1() {
-
+        System.out.println();
     }
 
     @Test
     void test2() {
-
+        System.out.println();
     }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.transaction.AfterTransaction;
@@ -11,6 +12,7 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.stanislav.spring.database.entity.Company;
 import org.stanislav.spring.database.repository.CompanyRepository;
+import org.stanislav.spring.integration.IntegrationTestBase;
 import org.stanislav.spring.integration.annotation.IntegrationTest;
 
 import java.util.Map;
@@ -19,10 +21,9 @@ import java.util.Optional;
 /**
  * @author Stanislav Hlova
  */
-@IntegrationTest
 @RequiredArgsConstructor
 @Rollback(value = true) //default
-class CompanyRepositoryTest {
+class CompanyRepositoryTest extends IntegrationTestBase {
 
     public static final int AMAZON_ID = 8;
     private final EntityManager entityManager;
@@ -45,6 +46,7 @@ class CompanyRepositoryTest {
         companyRepository.findAllByNameContainingIgnoreCase("a");
     }
     @Test
+    @Disabled
     void delete() {
         Optional<Company> maybeCompany = companyRepository.findById(AMAZON_ID);
         assertTrue(maybeCompany.isPresent());

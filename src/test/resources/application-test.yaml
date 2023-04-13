@@ -3,8 +3,15 @@ database:
   password: test
 
 spring:
+  datasource:
+    username: test
+    password: test
+  h2:
+    console:
+      enabled: true
   jpa:
     properties:
       hibernate:
         hbm2ddl:
           auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
