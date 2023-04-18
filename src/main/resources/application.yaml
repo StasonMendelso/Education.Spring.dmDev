@@ -31,6 +31,12 @@ logging:
   file:
     name: logs/logging_info.log
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+    format:
+      date: iso
   datasource:
     url: jdbc:postgresql://localhost:5432/spring_dmdev
     username: postgres
@@ -46,3 +52,4 @@ spring:
         jdbc:
           batch_size: 50
           fetch_size: 10
+    open-in-view: false

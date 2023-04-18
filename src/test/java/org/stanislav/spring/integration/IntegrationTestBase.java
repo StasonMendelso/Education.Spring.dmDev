@@ -11,7 +11,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
  * @author Stanislav Hlova
  */
 @IntegrationTest
-@Sql(scripts = "classpath:sql/data.sql") //not work properly
+@Sql(scripts = "classpath:sql/data.sql")
 public abstract class IntegrationTestBase {
 
     private static final PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres");
