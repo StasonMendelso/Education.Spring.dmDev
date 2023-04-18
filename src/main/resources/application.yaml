@@ -50,3 +50,4 @@ spring:
         jdbc:
           batch_size: 50
           fetch_size: 10
+    open-in-view: false
