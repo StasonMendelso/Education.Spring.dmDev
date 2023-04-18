@@ -5,15 +5,12 @@ import static org.hamcrest.Matchers.hasSize;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import org.stanislav.spring.dto.UserCreateEditDto;
 import static org.stanislav.spring.dto.UserCreateEditDto.Fields.birthDate;
 import static org.stanislav.spring.dto.UserCreateEditDto.Fields.companyId;
 import static org.stanislav.spring.dto.UserCreateEditDto.Fields.firstname;
@@ -47,7 +44,7 @@ class UserControllerTest extends IntegrationTestBase {
                         .param(firstname, "Test")
                         .param(role, "ADMIN")
                         .param(companyId, "1")
-                        .param(birthDate,"2000.01.01")
+                        .param(birthDate,"2000-01-01")
                 )
                 .andExpectAll(
                         status().is3xxRedirection(),
