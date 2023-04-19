@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.dto.UserCreateEditDto;
 import org.stanislav.spring.service.CompanyService;
+import org.stanislav.spring.dto.UserFilter;
+
 import org.stanislav.spring.service.UserService;
 
 /**
@@ -30,8 +32,8 @@ public class UserController {
     private final CompanyService companyService;
 
     @GetMapping()
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String findAll(Model model, UserFilter userFilter) {
+        model.addAttribute("users", userService.findAll(userFilter));
         return "user/users";
     }
 

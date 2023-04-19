@@ -58,11 +58,11 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
         criteriaQuery.select(root);
 
         List<Predicate> predicates = new ArrayList<>();
-        if (userFilter.getFirstName() != null) {
-            predicates.add(criteriaBuilder.like(root.get("firstname"), userFilter.getFirstName()));
+        if (userFilter.getFirstName() != null && !userFilter.getFirstName().isBlank()) {
+            predicates.add(criteriaBuilder.like(root.get("firstname"), String.format("%%%s%%",userFilter.getFirstName())));
         }
-        if (userFilter.getLastName() != null) {
-            predicates.add(criteriaBuilder.like(root.get("lastname"), userFilter.getLastName()));
+        if (userFilter.getLastName() != null && !userFilter.getLastName().isBlank()) {
+            predicates.add(criteriaBuilder.like(root.get("lastname"), String.format("%%%s%%",userFilter.getLastName())));
         }
         if (userFilter.getBirthDate() != null) {
             predicates.add(criteriaBuilder.lessThan(root.get("birthDate"), userFilter.getBirthDate()));

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.stanislav.spring.database.repository.CompanyRepository;
 import org.stanislav.spring.database.repository.UserRepository;
 import org.stanislav.spring.dto.UserCreateEditDto;
+import org.stanislav.spring.dto.UserFilter;
 import org.stanislav.spring.dto.UserReadDto;
 import org.stanislav.spring.mapper.UserCreateEditMapper;
 import org.stanislav.spring.mapper.UserReadMapper;
@@ -26,6 +27,12 @@ public class UserService {
 
     public List<UserReadDto> findAll() {
         return userRepository.findAll().stream()
+                .map(userReadMapper::map)
+                .toList();
+    }
+
+    public List<UserReadDto> findAll(UserFilter userFilter) {
+        return userRepository.findAllByFilter(userFilter).stream()
                 .map(userReadMapper::map)
                 .toList();
     }
