@@ -8,7 +8,9 @@ import org.stanislav.spring.database.repository.CompanyRepository;
 import org.stanislav.spring.dto.CompanyReadDto;
 import org.stanislav.spring.listener.entity.AccessType;
 import org.stanislav.spring.listener.entity.EntityEvent;
+import org.stanislav.spring.mapper.CompanyReadMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,16 +19,23 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CompanyService {
-    private final UserService userService;
     private final CompanyRepository companyRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final CompanyReadMapper companyReadMapper;
 
-    @Transactional
+
     public Optional<CompanyReadDto> findById(int id) {
         return companyRepository.findById(id).map((entity) -> {
             eventPublisher.publishEvent(new EntityEvent(entity, AccessType.READ));
-            return new CompanyReadDto(entity.getId(), null);
+            return companyReadMapper.map(entity);
         });
+    }
+
+    public List<CompanyReadDto> findAll() {
+        return companyRepository.findAll().stream()
+                .map(companyReadMapper::map)
+                .toList();
     }
 }

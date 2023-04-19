@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+    <form action="/users" method="get">
+        <label for="firstName">Firstname:
+            <input id="firstName" type="text" name="firstName">
+        </label>
+        <label for="lastName">Lastname:
+            <input id="lastName" type="text" name="lastName">
+        </label>
+        <label for="birthDate">Birthdate:
+            <input id="birthDate" type="date" name="birthDate">
+        </label>
+        <button type="submit">Filter</button>
+    </form>
+    <div th:each="user : ${users}">
+        <a th:href="@{/users/{id}(id=${user.id})}" th:text="|${user.id}. ${user.username}|">User</a>
+    </div>
+</body>
+</html>

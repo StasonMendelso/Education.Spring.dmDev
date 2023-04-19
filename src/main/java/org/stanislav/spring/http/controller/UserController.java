@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.dto.UserCreateEditDto;
+import org.stanislav.spring.service.CompanyService;
+import org.stanislav.spring.dto.UserFilter;
+
 import org.stanislav.spring.service.UserService;
 
 /**
@@ -24,10 +29,11 @@ import org.stanislav.spring.service.UserService;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final CompanyService companyService;
 
     @GetMapping()
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String findAll(Model model, UserFilter userFilter) {
+        model.addAttribute("users", userService.findAll(userFilter));
         return "user/users";
     }
 
@@ -36,15 +42,32 @@ public class UserController {
         return userService.findById(id)
                 .map(userReadDto -> {
                     model.addAttribute("user", userReadDto);
+                    model.addAttribute("roles", Role.values());
+                    model.addAttribute("companies", companyService.findAll());
                     return "user/user";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/registration")
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
+        model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("companies", companyService.findAll());
+        return "user/registration";
+    }
+
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(UserCreateEditDto user) {
-        return "redirect:/users/" + userService.create(user);
+    public String create(@ModelAttribute UserCreateEditDto user,
+                         RedirectAttributes redirectAttributes) {
+//        if (true){
+////            redirectAttributes.addAttribute("username", user.getUsername());
+////            redirectAttributes.addAttribute("firstname", user.getFirstname());
+//            redirectAttributes.addFlashAttribute("user", user); // add to session
+//            return "redirect:/users/registration";
+//        }
+        return "redirect:/users/" + userService.create(user).getId();
     }
 
     //    @PutMapping("/{id}")
@@ -55,7 +78,7 @@ public class UserController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         if (userService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
