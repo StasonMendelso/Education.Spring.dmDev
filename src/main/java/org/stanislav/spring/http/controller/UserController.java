@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
+import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.dto.UserCreateEditDto;
+import org.stanislav.spring.service.CompanyService;
 import org.stanislav.spring.service.UserService;
 
 /**
@@ -24,6 +26,7 @@ import org.stanislav.spring.service.UserService;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final CompanyService companyService;
 
     @GetMapping()
     public String findAll(Model model) {
@@ -36,6 +39,8 @@ public class UserController {
         return userService.findById(id)
                 .map(userReadDto -> {
                     model.addAttribute("user", userReadDto);
+                    model.addAttribute("roles", Role.values());
+                    model.addAttribute("companies", companyService.findAll());
                     return "user/user";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -55,7 +60,7 @@ public class UserController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         if (userService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
