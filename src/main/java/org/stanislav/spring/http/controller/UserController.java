@@ -1,10 +1,17 @@
 package org.stanislav.spring.http.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,16 +27,25 @@ import org.stanislav.spring.service.CompanyService;
 import org.stanislav.spring.dto.UserFilter;
 
 import org.stanislav.spring.service.UserService;
+import org.stanislav.spring.validation.group.CreateAction;
+import org.stanislav.spring.validation.group.UpdateAction;
 
 /**
  * @author Stanislav Hlova
  */
+@Slf4j
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final CompanyService companyService;
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception exception, HttpServletRequest request){
+        log.error("Failed to return response", exception);
+        return "error/error500";
+    }
 
     @GetMapping()
     public String findAll(Model model, UserFilter userFilter) {
@@ -59,20 +75,20 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute UserCreateEditDto user,
+    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateEditDto user,
+                         BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
-//        if (true){
-////            redirectAttributes.addAttribute("username", user.getUsername());
-////            redirectAttributes.addAttribute("firstname", user.getFirstname());
-//            redirectAttributes.addFlashAttribute("user", user); // add to session
-//            return "redirect:/users/registration";
-//        }
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("user", user); // add to session
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors()); // add to session
+            return "redirect:/users/registration";
+        }
         return "redirect:/users/" + userService.create(user).getId();
     }
 
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute UserCreateEditDto user) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute  @Validated({Default.class, UpdateAction.class}) UserCreateEditDto user) {
         return userService.update(id, user)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
