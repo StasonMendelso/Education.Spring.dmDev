@@ -1,8 +1,10 @@
 package org.stanislav.spring.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.stanislav.spring.database.repository.CompanyRepository;
 import org.stanislav.spring.database.repository.UserRepository;
 import org.stanislav.spring.dto.UserCreateEditDto;
@@ -24,6 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
     private final UserCreateEditMapper userCreateEditMapper;
+    private final ImageService imageService;
 
     public List<UserReadDto> findAll() {
         return userRepository.findAll().stream()
@@ -44,8 +47,12 @@ public class UserService {
 
     @Transactional
     public UserReadDto create(UserCreateEditDto userDto) {
+
         return Optional.of(userDto)
-                .map(userCreateEditMapper::map)
+                .map(dto -> {
+                    uploadImage(dto.getImage());
+                    return userCreateEditMapper.map(dto);
+                })
                 .map(userRepository::save)
                 .map(userReadMapper::map)
                 .orElseThrow();
@@ -54,9 +61,19 @@ public class UserService {
     @Transactional
     public Optional<UserReadDto> update(Long id, UserCreateEditDto userDto) {
         return userRepository.findById(id)
-                .map(entity -> userCreateEditMapper.map(userDto, entity))
+                .map(entity -> {
+                    uploadImage(userDto.getImage());
+                    return userCreateEditMapper.map(userDto, entity);
+                })
                 .map(userRepository::saveAndFlush)
                 .map(userReadMapper::map);
+    }
+
+    @SneakyThrows
+    private void uploadImage(MultipartFile image) {
+        if (!image.isEmpty()) {
+            imageService.upload(image.getOriginalFilename(), image.getInputStream());
+        }
     }
 
     @Transactional
