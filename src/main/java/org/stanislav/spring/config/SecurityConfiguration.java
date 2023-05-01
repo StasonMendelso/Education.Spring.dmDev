@@ -3,6 +3,7 @@ package org.stanislav.spring.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +21,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeHttpRequests().anyRequest().authenticated()
                 .and()
+//                .httpBasic(Customizer.withDefaults())
                 .formLogin(login->login
                         .loginPage("/login")
                         .defaultSuccessUrl("/users")
