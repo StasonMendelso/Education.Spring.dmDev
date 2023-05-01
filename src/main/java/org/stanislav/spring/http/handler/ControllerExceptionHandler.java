@@ -13,9 +13,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice(basePackages = "org.stanislav.spring.http.controller")
 public class ControllerExceptionHandler /*extends ResponseEntityExceptionHandler*/ {
 
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception exception, HttpServletRequest request){
-        log.error("Failed to return response", exception);
-        return "error/error500";
-    }
+//    @ExceptionHandler(Exception.class)
+//    public String handleException(Exception exception, HttpServletRequest request){
+//        log.error("Failed to return response", exception);
+//        return "error/error500";
+//    }
 }

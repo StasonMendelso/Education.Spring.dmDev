@@ -2,6 +2,8 @@ package org.stanislav.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,13 +41,14 @@ public class UserService implements UserDetailsService {
                 .map(userReadMapper::map)
                 .toList();
     }
-
+  //  @PostFilter("filterObject.role.name().equals('ADMIN')")
+//    @PostFilter("@companyService.findById(filterObject.company.id()).isPresent()")
     public List<UserReadDto> findAll(UserFilter userFilter) {
         return userRepository.findAllByFilter(userFilter).stream()
                 .map(userReadMapper::map)
                 .toList();
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Optional<UserReadDto> findById(Long id) {
         return userRepository.findById(id)
                 .map(userReadMapper::map);
