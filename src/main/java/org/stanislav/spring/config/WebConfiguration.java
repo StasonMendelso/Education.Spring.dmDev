@@ -19,8 +19,5 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addConverter(Jsr310Converters.StringToLocalDateConverter.INSTANCE);
         registry.addFormatter(new LocalDateFormatter());
     }
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }
+
 }
