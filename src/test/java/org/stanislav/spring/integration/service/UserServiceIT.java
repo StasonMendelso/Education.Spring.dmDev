@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 import org.stanislav.spring.database.entity.Role;
 import org.stanislav.spring.dto.UserCreateEditDto;
 import org.stanislav.spring.dto.UserReadDto;
@@ -45,11 +46,13 @@ public class UserServiceIT extends IntegrationTestBase {
     public void create(){
         UserCreateEditDto userCreateEditDto = new UserCreateEditDto(
                 "test@gmail.com",
+                "test",
                 LocalDate.now(),
                 "Test",
                 "Test",
                 Role.ADMIN,
-                COMPANY_1
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0])
         );
         UserReadDto actualResult = userService.create(userCreateEditDto);
 
@@ -64,11 +67,13 @@ public class UserServiceIT extends IntegrationTestBase {
     public void update(){
         UserCreateEditDto userCreateEditDto = new UserCreateEditDto(
                 "test@gmail.com",
+                "test",
                 LocalDate.now(),
                 "Test",
                 "Test",
                 Role.ADMIN,
-                COMPANY_1
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0])
         );
 
         Optional<UserReadDto> actualResult = userService.update(USER_1, userCreateEditDto);
