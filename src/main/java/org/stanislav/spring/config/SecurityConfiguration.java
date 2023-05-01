@@ -23,6 +23,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests().anyRequest().authenticated()
                 .and()
 //                .httpBasic(Customizer.withDefaults())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .deleteCookies("JSESSIONID"))
                 .formLogin(login->login
                         .loginPage("/login")
                         .defaultSuccessUrl("/users")
