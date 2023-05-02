@@ -57,3 +57,12 @@ spring:
           fetch_size: 10
     open-in-view: false
     show-sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: <your clientId>
+            clientSecret: <your clientSecret>
+            redirectUri: http://localhost:8080/login/oauth2/code/google
+            scope: openid,email,profile
