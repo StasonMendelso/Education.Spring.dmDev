@@ -60,6 +60,9 @@ public class User extends AuditingEntity<Long> {
     @Column(name = "lastname")
     private String lastname;
 
+    @Column(name = "password")
+    private String password;
+
     private String image;
 
     @Enumerated(EnumType.STRING)
