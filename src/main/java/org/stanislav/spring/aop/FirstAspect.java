@@ -1,6 +1,8 @@
 package org.stanislav.spring.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.stanislav.spring.validation.annotation.UserInfo;
  */
 @Aspect
 @Component
+@Slf4j
 public class FirstAspect {
 
     /*
@@ -80,4 +83,27 @@ public class FirstAspect {
 //    @Pointcut(value = "execution(public * findById(*))")
     public void anyFindByIdServiceMethod() {
     }
+
+    @Before(value = "anyFindByIdServiceMethod()")
+    //@Before(value = "execution(public * org.stanislav.spring.service.*Service.findById(*))")
+    public void addLogging() {
+        log.info("invoked findById method");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
