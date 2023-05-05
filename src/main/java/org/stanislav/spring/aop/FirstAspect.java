@@ -1,10 +1,12 @@
 package org.stanislav.spring.aop;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.stanislav.spring.validation.annotation.UserInfo;
@@ -84,26 +86,20 @@ public class FirstAspect {
     public void anyFindByIdServiceMethod() {
     }
 
-    @Before(value = "anyFindByIdServiceMethod()")
+    @Before(value = "anyFindByIdServiceMethod() " +
+                    "&& args(id) " +
+                    "&& target(service) " +
+                    "&& this(serviceProxy) " +
+                    "&& @within(transactional)",
+            argNames = "joinPoint,id,service,serviceProxy,transactional")
     //@Before(value = "execution(public * org.stanislav.spring.service.*Service.findById(*))")
-    public void addLogging() {
-        log.info("invoked findById method");
+    public void addLogging(JoinPoint joinPoint, //must be always first
+                           Object id,
+                           Object service,
+                           Object serviceProxy,
+                           Transactional transactional) {
+        log.info("invoked findById method in class {}, with id {}", service, id);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
